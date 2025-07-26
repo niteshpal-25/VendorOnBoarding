@@ -1,5 +1,8 @@
-var builder = WebApplication.CreateBuilder(args);
+using VendorOnboarding;
 
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddControllers();
+builder.Services.AddScoped<IVendorService, VendorService>();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 

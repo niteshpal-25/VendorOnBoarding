@@ -9,22 +9,29 @@ namespace VendorOnboarding.Controllers
     public class VendorController : ControllerBase
     {
         private readonly IVendorService _vendorService;
+
         public VendorController(IVendorService vendorService)
         {
             _vendorService = vendorService ?? throw new ArgumentNullException(nameof(vendorService));
         }
 
         [HttpPost]
-        public async Task<ActionResult<VendorDetails>> CreateVendor([FromBody] VendorDetails vendorDto)
+        public async Task<ActionResult<object>> CreateVendor([FromBody] VendorDetails vendorDto)
         {
             if (vendorDto == null)
             {
                 return BadRequest("Vendor data cannot be null.");
             }
+
             try
             {
                 var createdVendor = await _vendorService.CreateVendorAsync(vendorDto);
-                return CreatedAtAction(nameof(CreateVendor), new { vendorName = createdVendor.VendorName }, createdVendor);
+                var response = new
+                {
+                    Message = "Vendor record saved successfully.",
+                    Data = createdVendor
+                };
+                return CreatedAtAction(nameof(CreateVendor), new { vendorName = createdVendor.VendorName }, response);
             }
             catch (ArgumentException ex)
             {
