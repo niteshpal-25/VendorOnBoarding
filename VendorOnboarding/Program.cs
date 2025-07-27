@@ -1,4 +1,5 @@
-using VendorOnboarding;
+using VendorOnboarding.Interface;
+using VendorOnboarding.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -7,6 +8,7 @@ builder.Services.AddScoped<IVendorService, VendorService>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+app.UseCors("AllowAll");
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
