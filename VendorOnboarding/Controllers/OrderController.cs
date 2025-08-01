@@ -22,13 +22,7 @@ namespace VendorOnboarding.Controllers
 
             order.VendorId = vendorId; // Ensure the vendor ID is set
             var createdOrder = await _orderService.CreateOrderAsync(order);
-            return CreatedAtAction(nameof(GetOrderById), new { id = createdOrder.Id }, createdOrder);
-        }
-
-        [HttpGet("orders/{id}")]
-        public async Task<IActionResult> GetOrderById(int id)
-        {
-            return NotFound("Order retrieval not implemented yet.");
+            return Ok(createdOrder);
         }
     }
 }
