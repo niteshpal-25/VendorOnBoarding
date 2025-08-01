@@ -20,7 +20,7 @@ namespace VendorOnboarding.Service
             if (vendorDto == null)
             {
                 throw new ArgumentNullException(nameof(vendorDto));
-            }
+            }   
 
             using var connection = new SqlConnection(_connectionString);
             await connection.OpenAsync();
